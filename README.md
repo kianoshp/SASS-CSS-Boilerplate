@@ -20,11 +20,11 @@ require the above SASS CSS files to use them. The naming convention for these fi
 begin with '_' (underscore) :
 1.  _media-queries.scss: This file will contain all the media queries for the responsive 
 design implementation.
-** _mixins.scss: this file contains all the mixins that have been created (and any future 
+2. _mixins.scss: this file contains all the mixins that have been created (and any future 
 mixins).
-2. _normalize-mixins.scss: this file contains the mixins for normalize.scss file.
-3. _print.scss: this file contains all the CSS for the print version of the site.
-4. _variables.scss: this file contains all the variables that is used throughout the SASS
+3. _normalize-mixins.scss: this file contains the mixins for normalize.scss file.
+4. _print.scss: this file contains all the CSS for the print version of the site.
+5. _variables.scss: this file contains all the variables that is used throughout the SASS
 CSS files.
 * functions: this folder contains all the SASS functions created. Each function will be placed in 
 their own file. For ease of use, create an overloaded function that will be easier to type. For eaxmple 
