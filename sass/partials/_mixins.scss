@@ -77,7 +77,15 @@
     $pos: top; // Default position
 	}
 	
-  $full: compact($G1, $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10);
+  $full: $G1;	
+  @each $g in $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10 {
+  	@if $g != false {
+  		$full: $full + ',' + $g;
+  	}
+  }
+  
+  //If using COMPASS uncomment the line below and remove line 80 - 85
+  //$full: compact($G1, $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10);
 	
   // Set $G1 as the default fallback color
   $fallback-color: nth($G1, 1);
