@@ -27,7 +27,7 @@ mixins).
 5. _variables.scss: this file contains all the variables that is used throughout the SASS
 CSS files.
 * functions: this folder contains all the SASS functions created. Each function will be placed in 
-their own file. For ease of use, create an overloaded function that will be easier to type. For eaxmple 
-in this boilerplate I have created a function called '_responsive-font-size', I also have a function
-named 'rfs'. The naming convention for these files will 
+their own file. For ease of use, create an overloaded function that will be easier to type. For example 
+in this boilerplate I have created a function called "_responsive-font-size", I also have a function
+named "rfs". The naming convention for these files will 
 begin with '_' (underscore)
