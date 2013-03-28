@@ -13,6 +13,7 @@ the following components:
 * normalize.scss: this file contains the normalize css for the boilerplate. Some components 
 have been abstracted and placed in a file named "_normalize-mixins.scss".
 * helper.scss: this file contains the helper classes (for example .ir and .hidden classes).
+* padding-margin.scss: this file contains all the padding and margin classes to override individual padding and margins.
 * style.scss: this file will contain all the site specific css information.
 * partials: This folder contains all the partial SASS CSS files that will help in abstraction 
 of css and data. All CSS (and SASS mixins) in these file cannot stand on their own and 
