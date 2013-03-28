@@ -1,0 +1,31 @@
+// ==|===Linear gradient color processing====================
+//	Function that will process the given number of colors
+//  and return the correct color strings
+// =========================================================*/
+@function linearGradientColors($G1, $G2: false,
+                       $G3: false, $G4: false,
+                       $G5: false, $G6: false,
+                       $G7: false, $G8: false,
+                       $G9: false, $G10: false) {
+	$full: $G1;	
+	@each $g in $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10 {
+		@if $g != false {
+			$full: $full + ',' + $g;
+		}
+	}
+	
+	$full: unquote($full);
+
+	//If using COMPASS uncomment the line below and remove line 10 - 17
+	//$full: compact($G1, $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10);
+	
+	@return $full;
+}
+
+@function lgc($G1, $G2: false,
+                       $G3: false, $G4: false,
+                       $G5: false, $G6: false,
+                       $G7: false, $G8: false,
+                       $G9: false, $G10: false) {
+	@return linearGradientColors($G1, $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10);
+}
