@@ -22,7 +22,7 @@
 	 * 2. Allow styling of clickable form elements in iOS
 	 * 3. Correct inner spacing displayed oddly in IE7 (doesn't effect IE6)
 	 */
-	@include handCursor;
+	@include hand-cursor;
 	-webkit-appearance: button; 
 	*overflow: visible; 
 }
