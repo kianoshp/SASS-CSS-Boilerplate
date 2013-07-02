@@ -1,2 +1,4 @@
 .DS-STORE
 sass/.sass-cache
+.sass-cache
+sass/style.css
