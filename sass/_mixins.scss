@@ -1,0 +1,389 @@
+//==|== SASS mixin styles =====================================================
+// All mixins will be placed here. For more information on mixins go here:
+// http://sass-lang.com/#mixins
+// or here:
+// http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#mixins
+// Author:
+// ========================================================================== */
+
+@import "functions/_linear-gradient-colors";
+
+//this mixin will set the  list-style-type to none and remove any padding
+@mixin noListStyle {
+	list-style-type: none;
+	list-style-image: none;
+	padding: 0;
+	margin: 0;
+}
+
+//This mixin will add border at given position. If no position is given (or position is all)
+//then the border will be applied to all sides
+@mixin add-border($border-position: all, $border-size: 1px, $border-pattern: solid, $border-color: #000) {
+	@if $border-position == 'all' {
+		border: $border-size $border-pattern $border-color;
+	} @else {
+		border-#{$border-position}: $border-size $border-pattern $border-color;
+	}
+}
+
+//this mixin gives the flexibility to add margins to all sides and passing the values for
+//each side, or to specify each side exclusively
+@mixin add-margin($margin-position: all, $coordinates: 0 0 0 0) {
+	@if $margin-position == 'all' {
+    @if length($coordinates) == 1 {
+        margin: nth($coordinates, 1); 
+      } @else if length($coordinates) == 2 {
+        margin: $coordinates;
+      } @else {
+        $top: nth($coordinates, 1);
+        $right: nth($coordinates, 2);
+        $bottom: nth($coordinates, 3);
+        $left: nth($coordinates, 4);
+        margin: $top $right $bottom $left;
+      }
+	} @else {
+		margin-#{$margin-position}: nth($coordinates, 1);
+	}
+}
+
+//this mixin will set the border-radius for either all sides or a specified
+//side
+@mixin add-border-radius($border-radius-position: all, $border-radius: 2px) {
+	@if $border-radius-position == 'all' {
+		border-radius: $border-radius;
+	} @else {
+		border-#{$border-radius-position}-radius: $border-radius;
+	}
+}
+
+//this mixin will add the hand/pointer cursor to any element that
+//will be treated as a link/clickable
+@mixin hand-cursor {
+	cursor: hand;
+	cursor: pointer;
+}
+
+//this mixin will create a linear-gradient. The parameters passed here are:
+//$pos: position of the gradient which defaults to top but can take bottom, left, or right
+//$G1-G10: these allow for 10 color stops values, color and length/percentage
+//$fallback: this is the fallback color that will be used for older browsers, if this parameter
+//is not provided then the first color stop is used. 
+@mixin linear-gradient($pos, $G1, $G2: false,
+                       $G3: false, $G4: false,
+                       $G5: false, $G6: false,
+                       $G7: false, $G8: false,
+                       $G9: false, $G10: false,
+                       $fallback: false) {
+                       
+  // Detect what type of value exists in $pos
+  $pos-type: type-of(nth($pos, 1));
+
+  // If $pos is missing from mixin, reassign vars and add default position
+  @if ($pos-type == color) or (nth($pos, 1) == "transparent")  {
+    $G10: $G9; $G9: $G8; $G8: $G7; $G7: $G6; $G6: $G5;
+     $G5: $G4; $G4: $G3; $G3: $G2; $G2: $G1; $G1: $pos;
+    $pos: top; // Default position
+	}
+	
+  $pos: unquote($pos);
+
+  $full: lgc($G1, $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10);
+  
+  // Set $G1 as the default fallback color
+  $fallback-color: nth($G1, 1);
+
+  // If $fallback is a color use that color as the fallback color
+  @if type-of($fallback) == color {
+    $fallback-color: $fallback;
+  }
+
+  background: $fallback-color;
+  background:          webkit-gradient(linear, $full); // Safari <= 5.0
+  background:  -webkit-linear-gradient($pos, $full); // Safari 5.1+, Chrome
+  background:     -moz-linear-gradient($pos, $full);
+  background:      -ms-linear-gradient($pos, $full);
+  background:       -o-linear-gradient($full);
+  background: unquote("linear-gradient(#{$full})"); 
+}
+
+//this mixin will create background image attached to a linear gradient background
+@mixin add-background-image-gradient($url, $position, $repeat, $gradient-pos, $gradient-color-1, $gradient-color-2){
+  $full: lgc($gradient-color-1, $gradient-color-2);
+  background: $url $position $repeat, $gradient-color-1;
+  background: $url $position $repeat, webkit-gradient(linear, $full);
+  background: $url $position $repeat, -webkit-linear-gradient($gradient-pos, $full);
+  background: $url $position $repeat, -moz-linear-gradient($gradient-pos, $full);
+  background: $url $position $repeat, -ms-linear-gradient($gradient-pos, $full);
+  background: $url $position $repeat, -o-linear-gradient($full);
+  background: $url $position $repeat, unquote("linear-gradient(#{$full})");
+}
+
+//this mixin will set the position of an element and also set the top, right, bottom, and left
+//coordinates. If no position is provided then the default position will relative
+@mixin position ($position: relative, $coordinates: 0 0 0 0) {
+
+	@if type-of($position) == list {
+		$coordinates: $position;
+		$position: relative;
+	}
+
+  $top: nth($coordinates, 1);
+  $right: nth($coordinates, 2);
+  $bottom: nth($coordinates, 3);
+  $left: nth($coordinates, 4);
+
+  position: $position;
+
+  @if not(unitless($top)) {
+    top: $top;
+  }
+
+  @if not(unitless($right)) {
+    right: $right;
+  }
+
+  @if not(unitless($bottom)) {
+    bottom: $bottom;
+  }
+
+  @if not(unitless($left)) {
+    left: $left;
+  }
+}
+
+//this mixin will set the box-shadow values. It will also allow for the felxibility of
+//doing an inset shadow.
+@mixin box-shadow ($isInset: false, $hOffset: 0, $vOffset: 0, $blur: 0, $spread: 0, $color: #ccc) {
+	@if $isInset {
+		-moz-box-shadow: inset $hOffset $vOffset $blur $spread $color;
+		-webkit-box-shadow: inset $hOffset $vOffset $blur $spread $color;
+		box-shadow: inset $hOffset $vOffset $blur $spread $color;
+	} @else {
+		-moz-box-shadow: $hOffset $vOffset $blur $spread $color;
+		-webkit-box-shadow: $hOffset $vOffset $blur $spread $color;
+		box-shadow: $hOffset $vOffset $blur $spread $color;
+	}
+}
+
+// Background clipping
+// Heads up: FF 3.6 and under need "padding" instead of "padding-box"
+@mixin background-clip($clip) {
+  -webkit-background-clip: $clip;
+     -moz-background-clip: $clip;
+          background-clip: $clip;
+}
+
+// Transitions
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+     -moz-transition: $transition;
+       -o-transition: $transition;
+          transition: $transition;
+}
+@mixin transition-delay($transition-delay) {
+  -webkit-transition-delay: $transition-delay;
+     -moz-transition-delay: $transition-delay;
+       -o-transition-delay: $transition-delay;
+          transition-delay: $transition-delay;
+}
+@mixin transition-duration($transition-duration) {
+  -webkit-transition-duration: $transition-duration;
+     -moz-transition-duration: $transition-duration;
+       -o-transition-duration: $transition-duration;
+          transition-duration: $transition-duration;
+}
+
+//vertically centering a block element
+@mixin center-vertical {
+  @include add-margin(all, 0 auto);
+}
+
+//Adding the flex box container
+@mixin flex-box {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -o-box;
+  display: box;
+}
+
+//Setting the flex box ratio among the multiple containers
+@mixin flex-box-child($ratio) {
+  -webkit-box-flex: $ratio;
+  -moz-box-flex: $ratio;
+  -o-box-flex: $ratio;
+  box-flex: $ratio;
+}
+
+//A generic mixin that will create the settings of the flex box
+//these settings are:
+//box-orient,box-pack,box-align,box-flex,box-flex-group,box-ordinal-group,box-direction,box-lines.
+@mixin flex-box-settings($setting-name, $setting-value) {
+  -webkit-box-#{$setting-name}: $setting-value;
+  -moz-box-#{$setting-name}: $setting-value;
+  box-#{$setting-name}: $setting-value;
+}
+
+//A mixin that create a text stroke
+@mixin text-stroke ($stroke-width: 1px, $stroke-color: #000) {
+  -webkit-text-stroke: $stroke-width $stroke-color;
+  $negative-stroke-width: $stroke-width * -1;
+  text-shadow: 
+    $negative-stroke-width $negative-stroke-width 0 #000,  
+    $stroke-width $negative-stroke-width 0 #000,
+    $negative-stroke-width $stroke-width 0 #000,
+    $stroke-width $stroke-width 0 #000;  
+}
+
+@mixin add-transition($transition-property: all, $transition-duration: 1s, $transition-timing: ease, $transition-delay: 0s) {
+  -webkit-transition: $transition-property $transition-duration $transition-timing $transition-delay;
+  -moz-transition: $transition-property $transition-duration $transition-timing $transition-delay;
+  -o-transition: $transition-property $transition-duration $transition-timing $transition-delay;
+  transition: $transition-property $transition-duration $transition-timing $transition-delay;  
+}
+
+// Clearfix
+// --------
+// For clearing floats like a boss h5bp.com/q
+@mixin clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// Box sizing
+@mixin box-sizing($boxmodel) {
+  -webkit-box-sizing: $boxmodel;
+     -moz-box-sizing: $boxmodel;
+          box-sizing: $boxmodel;
+}
+
+// FORMS
+// --------------------------------------------------
+
+// Block level inputs
+@mixin input-block-level {
+  display: block;
+  width: 100%;
+  min-height: $inputHeight; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
+  @include box-sizing(border-box); // Makes inputs behave like true block-level elements
+}
+
+// The Grid
+@mixin grid-core($gridColumnWidth, $gridGutterWidth) {
+  .row {
+    margin-left: $gridGutterWidth * -1;
+    @include clearfix();
+  }
+
+  [class*="span"] {
+    float: left;
+    min-height: 1px; // prevent collapsing columns
+    margin-left: $gridGutterWidth;
+  }
+
+  // Set the container width, and override it for fixed navbars in media queries
+  .container,
+  .navbar-static-top .container,
+  .navbar-fixed-top .container,
+  .navbar-fixed-bottom .container {
+    @include grid-core-span($gridColumns, $gridColumnWidth, $gridGutterWidth);
+  }
+
+  // generate .spanX and .offsetX
+  @include grid-core-span-x($gridColumns, $gridColumnWidth, $gridGutterWidth);
+  @include grid-core-offset-x($gridColumns, $gridColumnWidth, $gridGutterWidth);
+}
+
+@mixin grid-core-span-x($gridColumns, $gridColumnWidth, $gridGutterWidth) {
+  @while $gridColumns > 0 {
+    .span#{$gridColumns} { @include grid-core-span($gridColumns, $gridColumnWidth, $gridGutterWidth)}
+    $gridColumns: $gridColumns - 1;
+  }
+}
+
+@mixin grid-core-offset-x($gridColumns, $gridColumnWidth, $gridGutterWidth) {
+  @while $gridColumns > 0 {
+    .offset#{$gridColumns} { @include grid-core-offset($gridColumns, $gridColumnWidth, $gridGutterWidth); }
+    $gridColumns: $gridColumns - 1;
+  }
+}
+
+@mixin grid-core-span($columns, $gridColumnWidth, $gridGutterWidth) {
+  width: ($gridColumnWidth * $columns) + ($gridGutterWidth * ($columns - 1));
+}
+
+@mixin grid-core-offset($columns, $gridColumnWidth, $gridGutterWidth) {
+  margin-left: ($gridColumnWidth * $columns) + ($gridGutterWidth * ($columns + 1));
+}
+
+
+//Fluid grid
+@mixin grid-fluid($fluidGridColumnWidth, $fluidGridGutterWidth) {
+  .row-fluid {
+    width: 100%;
+    @include clearfix();
+    [class*="span"] {
+      @include input-block-level();
+      float: left;
+      margin-left: $fluidGridGutterWidth;
+      *margin-left: $fluidGridGutterWidth - (.5 / $gridRowWidth * 100px * 1%);
+    }
+    [class*="span"]:first-child {
+      margin-left: 0;
+    }
+
+    // Space grid-sized controls properly if multiple per line
+    .controls-row [class*="span"] + [class*="span"] {
+      margin-left: $fluidGridGutterWidth;
+    }
+
+    // generate .spanX and .offsetX
+    @include grid-fluid-span-x($gridColumns, $fluidGridColumnWidth, $fluidGridGutterWidth);
+    @include grid-fluid-offset-x($gridColumns, $fluidGridColumnWidth, $fluidGridGutterWidth);
+  }
+}
+
+@mixin grid-fluid-span-x($gridColumns, $fluidGridColumnWidth, $fluidGridGutterWidth) {
+  @while $gridColumns > 0 {
+    .span#{$gridColumns} { @include grid-fluid-span($gridColumns, $fluidGridColumnWidth, $fluidGridGutterWidth); }
+    $gridColumns: $gridColumns - 1;
+  }
+}
+
+@mixin grid-fluid-offset-x($gridColumns, $fluidGridColumnWidth, $fluidGridGutterWidth) {
+  @while $gridColumns > 0 {
+    .offset#{$gridColumns} { @include grid-fluid-offset($gridColumns, $fluidGridColumnWidth, $fluidGridGutterWidth); }
+    .offset#{$gridColumns}:first-child { @include grid-fluid-offset-first-child($gridColumns, $fluidGridColumnWidth, $fluidGridGutterWidth); }
+    $gridColumns: $gridColumns - 1;
+  }
+}
+
+@mixin grid-fluid-span($columns, $fluidGridColumnWidth, $fluidGridGutterWidth) {
+  width: ($fluidGridColumnWidth * $columns) + ($fluidGridGutterWidth * ($columns - 1));
+  *width: ($fluidGridColumnWidth * $columns) + ($fluidGridGutterWidth * ($columns - 1)) - (.5 / $gridRowWidth * 100px * 1%);
+}
+
+@mixin grid-fluid-offset($columns, $fluidGridColumnWidth, $fluidGridGutterWidth) {
+  margin-left: ($fluidGridColumnWidth * $columns) + ($fluidGridGutterWidth * ($columns - 1)) + ($fluidGridGutterWidth * 2);
+  *margin-left: ($fluidGridColumnWidth * $columns) + ($fluidGridGutterWidth * ($columns - 1)) - (.5 / $gridRowWidth * 100px * 1%) + ($fluidGridGutterWidth * 2) - (.5 / $gridRowWidth * 100px * 1%);
+}
+
+@mixin grid-fluid-offset-first-child($columns, $fluidGridColumnWidth, $fluidGridGutterWidth) {
+  margin-left: ($fluidGridColumnWidth * $columns) + ($fluidGridGutterWidth * ($columns - 1)) + ($fluidGridGutterWidth);
+  *margin-left: ($fluidGridColumnWidth * $columns) + ($fluidGridGutterWidth * ($columns - 1)) - (.5 / $gridRowWidth * 100px * 1%) + $fluidGridGutterWidth - (.5 / $gridRowWidth * 100px * 1%);
+}
+
+// Opacity
+@mixin opacity($opacity) {
+  opacity: $opacity / 100;
+  filter: alpha(opacity=$opacity);
+}
