@@ -15,3 +15,60 @@ $anchorHoverColor: adjust-hue($anchorColor, -26deg);
 $anchorVisitedColor: #551a8b;
 
 $invalidBgColor: #f0dddd;
+
+// Grays
+// -------------------------
+$black:                 #000 !default;
+$grayDarker:            #222 !default;
+$grayDark:              #333 !default;
+$gray:                  #555 !default;
+$grayLight:             #999 !default;
+$grayLighter:           #eee !default;
+$white:                 #fff !default;
+
+
+// Accent colors
+// -------------------------
+$blue:                  #049cdb !default;
+$blueDark:              #0064cd !default;
+$green:                 #46a546 !default;
+$red:                   #9d261d !default;
+$yellow:                #ffc40d !default;
+$orange:                #f89406 !default;
+$pink:                  #c3325f !default;
+$purple:                #7a43b6 !default;
+
+// Forms
+// -------------------------
+$baseLineHeight:        20px !default;
+$baseBorderRadius:      4px !default;
+$borderRadiusLarge:     6px !default;
+$borderRadiusSmall:     3px !default;$inputBackground:               $white !default;
+$inputBorder:                   #ccc !default;
+$inputBorderRadius:             $baseBorderRadius !default;
+$inputDisabledBackground:       $grayLighter !default;
+$formActionsBackground:         #f5f5f5 !default;
+$inputHeight:                   $baseLineHeight + 10px; // base line-height + 8px vertical padding + 2px top/bottom border
+
+//Grid system variables
+//-----------------------------
+//Grid column
+$gridColumns:             12 !default;
+$gridColumnWidth:         60px !default;
+$gridGutterWidth:         20px !default;
+$gridRowWidth:            ($gridColumns * $gridColumnWidth) + (
+$gridGutterWidth * ($gridColumns - 1)) !default;
+
+//Fluid grid
+$fluidGridColumnWidth:    percentage(
+$gridColumnWidth/$gridRowWidth) !default;
+$fluidGridGutterWidth:    percentage(
+$gridGutterWidth/$gridRowWidth) !default;
+
+//Responsive
+//-----------------------------
+$small-screen-min-width: 320px !default;
+$small-screen-max-width: 568px !default;
+$medium-screen-min-width: 768px !default;
+$medium-screen-max-width: 1024px !default;
+$large-screen-min-width: 1824px !default;
