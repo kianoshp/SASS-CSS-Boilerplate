@@ -1,7 +1,7 @@
-@import "partials/_variables";
-@import "functions/_responsive-font-size";
-@import "partials/_mixins";
-@import "partials/_normalize-mixins";
+@import "_variables";
+@import "functions/_responsive-size";
+@import "_mixins";
+@import "_normalize-mixins";
 @import "normalize";
 
 /* ==|== primary styles =====================================================
@@ -11,6 +11,6 @@
 
 
 @import "padding-margin";
-@import "partials/_media-queries";
+@import "_media-queries";
 @import "helper";
-@import "partials/_print";
+@import "_print";

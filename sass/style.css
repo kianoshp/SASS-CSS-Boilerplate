@@ -42,7 +42,7 @@ html {
 
 body {
   margin: 0 0 0 0;
-  font-size: 1em;
+  font-size: responsiveFontSize(16, false);
   line-height: 1.4; }
 
 /*
@@ -108,7 +108,7 @@ mark {
 /* Redeclare monospace font family: h5bp.com/j */
 pre, code, kbd, samp {
   font-family: monospace, serif;
-  font-size: 1em;
+  font-size: responsiveFontSize(16, false);
   _font-family: 'courier new', monospace; }
 
 /* Improve readability of pre-formatted text in all browsers */
@@ -128,7 +128,7 @@ small {
 
 /* Position subscript and superscript content without affecting line-height: h5bp.com/k */
 sub, sup {
-  font-size: 0.75em;
+  font-size: responsiveFontSize(12, false);
   line-height: 0;
   position: relative;
   vertical-align: baseline; }
@@ -218,7 +218,7 @@ legend {
 select, textarea {
   font-family: sans-serif;
   color: #222222;
-  font-size: 1em;
+  font-size: responsiveFontSize(16, false);
   margin: 0 0 0 0;
   vertical-align: baseline;
   *vertical-align: middle; }
@@ -226,7 +226,7 @@ select, textarea {
 button {
   font-family: sans-serif;
   color: #222222;
-  font-size: 1em;
+  font-size: responsiveFontSize(16, false);
   margin: 0 0 0 0;
   vertical-align: baseline;
   *vertical-align: middle;
@@ -255,7 +255,7 @@ button {
 input {
   font-family: sans-serif;
   color: #222222;
-  font-size: 1em;
+  font-size: responsiveFontSize(16, false);
   margin: 0 0 0 0;
   vertical-align: baseline;
   *vertical-align: middle;
@@ -337,6 +337,125 @@ td {
 /* ==|== primary styles =====================================================
    Author:
    ========================================================================== */
+/**************** padding and margin settings *****************
+
+	Setting padding and margins to be added to different sections
+	This sections contains individual setting and also a mixin
+	to be able to add to different sections
+
+	spacing helpers
+	p,m = padding,margin
+	a,t,r,b,l,v,h = all,top,right,bottom,left,vertical,horizontal
+	s,m,l,n = small(5px),medium(10px),large(20px),none(0px)
+
+	This scss will create an example of the following:
+	.pts, .pas, .pvs {
+  		padding-top: 5px !important; }
+
+	.ptm, .pam, .pvm {
+  		padding-top: 10px !important; }
+
+	.ptl, .pal, .pvl {
+  		padding-top: 20px !important; }
+
+**************************************************************/
+.pts, .pas, .pvs {
+  padding-top: 5px !important; }
+
+.ptm, .pam, .pvm {
+  padding-top: 10px !important; }
+
+.ptl, .pal, .pvl {
+  padding-top: 20px !important; }
+
+.ptn, .pan, .pvn {
+  padding-top: 0px !important; }
+
+.prs, .pas, .phs {
+  padding-right: 5px !important; }
+
+.prm, .pam, .phm {
+  padding-right: 10px !important; }
+
+.prl, .pal, .phl {
+  padding-right: 20px !important; }
+
+.prn, .pan, .phn {
+  padding-right: 0px !important; }
+
+.pbs, .pas, .phs {
+  padding-bottom: 5px !important; }
+
+.pbm, .pam, .phm {
+  padding-bottom: 10px !important; }
+
+.pbl, .pal, .phl {
+  padding-bottom: 20px !important; }
+
+.pbn, .pan, .phn {
+  padding-bottom: 0px !important; }
+
+.pls, .pas, .pvs {
+  padding-left: 5px !important; }
+
+.plm, .pam, .pvm {
+  padding-left: 10px !important; }
+
+.pll, .pal, .pvl {
+  padding-left: 20px !important; }
+
+.pln, .pan, .pvn {
+  padding-left: 0px !important; }
+
+.mts, .mas, .mvs {
+  margin-top: 5px !important; }
+
+.mtm, .mam, .mvm {
+  margin-top: 10px !important; }
+
+.mtl, .mal, .mvl {
+  margin-top: 20px !important; }
+
+.mtn, .man, .mvn {
+  margin-top: 0px !important; }
+
+.mrs, .mas, .mhs {
+  margin-right: 5px !important; }
+
+.mrm, .mam, .mhm {
+  margin-right: 10px !important; }
+
+.mrl, .mal, .mhl {
+  margin-right: 20px !important; }
+
+.mrn, .man, .mhn {
+  margin-right: 0px !important; }
+
+.mbs, .mas, .mhs {
+  margin-bottom: 5px !important; }
+
+.mbm, .mam, .mhm {
+  margin-bottom: 10px !important; }
+
+.mbl, .mal, .mhl {
+  margin-bottom: 20px !important; }
+
+.mbn, .man, .mhn {
+  margin-bottom: 0px !important; }
+
+.mls, .mas, .mvs {
+  margin-left: 5px !important; }
+
+.mlm, .mam, .mvm {
+  margin-left: 10px !important; }
+
+.mll, .mal, .mvl {
+  margin-left: 20px !important; }
+
+.mln, .man, .mvn {
+  margin-left: 0px !important; }
+
+/***************** end padding and margin settings *************/
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
    This example overrides the primary ('mobile first') styles
